@@ -1,5 +1,6 @@
 package br.com.zupacademy.gustavo.mercadolivre.dto;
 
+import br.com.zupacademy.gustavo.mercadolivre.annotation.CampoDuplicado;
 import br.com.zupacademy.gustavo.mercadolivre.model.Usuario;
 
 import javax.validation.constraints.Email;
@@ -8,7 +9,7 @@ import javax.validation.constraints.Size;
 
 public class UsuarioForm {
 
-    @NotBlank @Email
+    @NotBlank @Email @CampoDuplicado(domainClass = Usuario.class, fieldName = "login")
     private String login;
     @NotBlank @Size(min = 6)
     private String senha;
