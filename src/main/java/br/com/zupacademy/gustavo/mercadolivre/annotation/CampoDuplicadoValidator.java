@@ -25,6 +25,7 @@ public class CampoDuplicadoValidator implements ConstraintValidator<CampoDuplica
 
     @Override
     public boolean isValid(Object o, ConstraintValidatorContext constraintValidatorContext) {
+        System.out.println("Entrando na anotação");
         Query query = entityManager.createQuery("select 1 from " + nomeClasse.getName()+" where "+nomeCampo+"=:value");
         query.setParameter("value", o);
         List<?> resultadoConsulta = query.getResultList();
