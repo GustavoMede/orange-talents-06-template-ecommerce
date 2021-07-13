@@ -14,6 +14,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/categoria")
@@ -35,8 +36,15 @@ public class CategoriaController {
             return ResponseEntity.ok().build();
         }
         if(tipoCategoria == TipoCategoria.SUBCATEGORIA){
+            if(request.getNomeSubcategoria() == null || request.getNomeCategoriaMae() == null){
+                return ResponseEntity.badRequest().build();
+            }
             Query query = entityManager.createQuery("select c from Categoria c where nomeCategoria=:value");
             query.setParameter("value", request.getNomeCategoriaMae());
+            List<?> resultadoConsulta = query.getResultList();
+            if(resultadoConsulta.isEmpty()){
+                return ResponseEntity.badRequest().build();
+            }
             Object objeto = query.getSingleResult();
             var categoria = (Categoria) objeto;
 

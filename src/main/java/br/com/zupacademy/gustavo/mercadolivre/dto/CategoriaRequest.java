@@ -31,6 +31,10 @@ public class CategoriaRequest {
         return nomeCategoriaMae;
     }
 
+    public String getNomeSubcategoria() {
+        return nomeSubcategoria;
+    }
+
     public Categoria converteCategoria(){
         return new Categoria(this.nomeCategoria);
     }
