@@ -20,9 +20,7 @@ public class Usuario implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @NotBlank @Email
     private String email;
-    @NotNull
     private String senha;
     @NotNull @PastOrPresent @Column(updatable = false)
     private LocalDateTime dataCriacao = LocalDateTime.now();

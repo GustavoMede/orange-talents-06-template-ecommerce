@@ -2,6 +2,7 @@ package br.com.zupacademy.gustavo.mercadolivre.security;
 
 import br.com.zupacademy.gustavo.mercadolivre.model.Usuario;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
@@ -38,7 +39,7 @@ public class TokenManager {
         try {
             Jwts.parser().setSigningKey(this.secret).parseClaimsJws(token);
             return true;
-        }catch (Exception e){
+        }catch (JwtException e){
             return false;
         }
     }

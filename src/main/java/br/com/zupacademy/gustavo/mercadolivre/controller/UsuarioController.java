@@ -1,7 +1,7 @@
 package br.com.zupacademy.gustavo.mercadolivre.controller;
 
 
-import br.com.zupacademy.gustavo.mercadolivre.dto.UsuarioForm;
+import br.com.zupacademy.gustavo.mercadolivre.dto.UsuarioRequest;
 import br.com.zupacademy.gustavo.mercadolivre.model.Usuario;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,7 +23,7 @@ public class UsuarioController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<?> cadastro(@RequestBody @Valid UsuarioForm form){
+    public ResponseEntity<?> cadastro(@RequestBody @Valid UsuarioRequest form){
 
         Usuario usuario = form.converte(form);
 
