@@ -10,7 +10,7 @@ import java.lang.annotation.Target;
 @Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = {ValidaListaValidator.class})
-public @interface ValidaLista {
+public @interface ValidaListaCaracteristicas {
 
     String message() default "O produto precisa ter pelo menos três características.";
 

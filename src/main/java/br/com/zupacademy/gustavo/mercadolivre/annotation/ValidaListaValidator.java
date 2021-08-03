@@ -7,11 +7,11 @@ import javax.validation.ConstraintValidatorContext;
 import java.util.List;
 
 
-public class ValidaListaValidator implements ConstraintValidator<ValidaLista, List<ListasCaracteristicasRequest>> {
+public class ValidaListaValidator implements ConstraintValidator<ValidaListaCaracteristicas, List<ListasCaracteristicasRequest>> {
 
 
     @Override
-    public void initialize(ValidaLista constraintAnnotation) {
+    public void initialize(ValidaListaCaracteristicas constraintAnnotation) {
     }
 
     @Override

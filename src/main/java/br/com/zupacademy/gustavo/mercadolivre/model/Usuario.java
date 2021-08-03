@@ -25,6 +25,7 @@ public class Usuario implements UserDetails {
     @NotNull @PastOrPresent @Column(updatable = false)
     private LocalDateTime dataCriacao = LocalDateTime.now();
 
+    @Deprecated
     public Usuario() {
     }
 

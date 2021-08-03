@@ -15,6 +15,7 @@ public class Categoria {
     @ManyToOne
     private Categoria categoriaMae;
 
+    @Deprecated
     public Categoria(){
     }
 
@@ -27,4 +28,11 @@ public class Categoria {
         this.categoriaMae = categoria;
     }
 
+    public String getNomeCategoria() {
+        return nomeCategoria;
+    }
+
+    public Categoria getCategoriaMae() {
+        return categoriaMae;
+    }
 }

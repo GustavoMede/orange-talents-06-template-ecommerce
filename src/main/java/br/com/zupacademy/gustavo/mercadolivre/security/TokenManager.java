@@ -1,10 +1,7 @@
 package br.com.zupacademy.gustavo.mercadolivre.security;
 
 import br.com.zupacademy.gustavo.mercadolivre.model.Usuario;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.JwtException;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
@@ -46,7 +43,11 @@ public class TokenManager {
 
     //Pega o login do usuário.
     public String getUserName(String token) {
-        Claims claims = Jwts.parser().setSigningKey(this.secret).parseClaimsJws(token).getBody();
-        return claims.getSubject();
+        try {
+            Claims claims = Jwts.parser().setSigningKey(this.secret).parseClaimsJws(token).getBody();
+            return claims.getSubject();
+        }catch(SignatureException ex){
+            return null;
+        }
     }
 }

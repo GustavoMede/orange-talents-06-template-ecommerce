@@ -18,18 +18,17 @@ public class ErroValidacaoDTO {
         this.currentDate = currentDate;
         this.message = message;
         this.messageList = messageList;
-
     }
 
     public LocalDateTime getCurrentDate() {
         return currentDate;
     }
 
-    public String getMessage() {
-        return message.toString();
-    }
-
     public List<ObjectError> getMessageList() {
         return messageList;
+    }
+
+    public List<FieldError> getMessage() {
+        return message;
     }
 }
