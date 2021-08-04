@@ -1,24 +1,23 @@
 package br.com.zupacademy.gustavo.mercadolivre.model;
 
-import org.hibernate.validator.constraints.Length;
+import br.com.zupacademy.gustavo.mercadolivre.dto.PerguntaRequestDto;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 
 @Entity
-public class OpiniaoProduto {
+public class PerguntaProduto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @Min(1)
-    @Max(5)
-    private Integer nota;
     @NotBlank
     private String titulo;
-    @NotBlank
-    @Length(max = 500)
-    private String descricao;
+    @CreationTimestamp
+    private LocalDateTime dataCriacao;
     @ManyToOne
     @NotNull
     private Usuario usuario;
@@ -27,27 +26,21 @@ public class OpiniaoProduto {
     private Produto produto;
 
     @Deprecated
-    public OpiniaoProduto() {
+    public PerguntaProduto() {
     }
 
-    public OpiniaoProduto(Integer nota, String titulo, String descricao, Usuario usuario, Produto produto) {
-        this.nota = nota;
+    public PerguntaProduto(@NotBlank String titulo, @NotNull Usuario usuario, @NotNull Produto produto) {
         this.titulo = titulo;
-        this.descricao = descricao;
         this.usuario = usuario;
         this.produto = produto;
-    }
-
-    public Integer getNota() {
-        return nota;
     }
 
     public String getTitulo() {
         return titulo;
     }
 
-    public String getDescricao() {
-        return descricao;
+    public LocalDateTime getDataCriacao() {
+        return dataCriacao;
     }
 
     public String getUsuario() {
@@ -56,5 +49,9 @@ public class OpiniaoProduto {
 
     public Produto getProduto() {
         return produto;
+    }
+
+    public PerguntaRequestDto converteDto() {
+        return new PerguntaRequestDto(this.titulo);
     }
 }

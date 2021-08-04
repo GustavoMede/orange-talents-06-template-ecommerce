@@ -43,6 +43,10 @@ public class FotoController {
         Set<String> links = uploaderFake.envia(request.getFotos());
 
         Produto produto = request.encontraProduto(entityManager, id);
+        if(produto == null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Produto não encontrado");
+        }
+
 
         Produto produtoPersistido = produto.converteFotos(links, produto);
 

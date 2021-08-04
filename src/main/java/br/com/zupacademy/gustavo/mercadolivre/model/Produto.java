@@ -32,6 +32,8 @@ public class Produto {
     private Set<FotoProduto> fotos = new HashSet<>();
     @OneToMany(mappedBy = "produto")
     private Set<OpiniaoProduto> opinioes;
+    @OneToMany(mappedBy = "produto")
+    private Set<PerguntaProduto> perguntas;
     @ManyToOne
     private Categoria categoria;
     @ManyToOne
