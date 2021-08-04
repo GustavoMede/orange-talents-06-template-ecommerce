@@ -11,7 +11,6 @@ public class Categoria {
     private Long id;
     @NotBlank
     private String nomeCategoria;
-
     @ManyToOne
     private Categoria categoriaMae;
 

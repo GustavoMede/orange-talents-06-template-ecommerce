@@ -9,18 +9,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
-import javax.validation.constraints.Size;
-import java.util.List;
 import java.util.Set;
 
 @RestController
-@RequestMapping("/foto")
+@RequestMapping("/imagem")
 public class FotoController {
 
     @PersistenceContext
@@ -30,7 +27,7 @@ public class FotoController {
     UploaderFake uploaderFake;
 
     @Transactional
-    @PostMapping("/produto/{id}/imagem")
+    @PostMapping("/produto/{id}")
     public ResponseEntity<?> cadastra(@PathVariable Long id, @Valid FotoRequest request,
                                       @AuthenticationPrincipal Usuario usuario) {
 
@@ -47,7 +44,7 @@ public class FotoController {
 
         Produto produto = request.encontraProduto(entityManager, id);
 
-        Produto produtoPersistido = produto.converte(links, produto);
+        Produto produtoPersistido = produto.converteFotos(links, produto);
 
         entityManager.persist(produtoPersistido);
 
