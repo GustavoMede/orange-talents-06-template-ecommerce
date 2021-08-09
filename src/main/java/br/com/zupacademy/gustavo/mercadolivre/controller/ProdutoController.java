@@ -1,6 +1,7 @@
 package br.com.zupacademy.gustavo.mercadolivre.controller;
 
 import br.com.zupacademy.gustavo.mercadolivre.dto.OpiniaoRequest;
+import br.com.zupacademy.gustavo.mercadolivre.dto.ProdutoDto;
 import br.com.zupacademy.gustavo.mercadolivre.dto.ProdutoRequest;
 import br.com.zupacademy.gustavo.mercadolivre.exception.ProdutoDuplicadoException;
 import br.com.zupacademy.gustavo.mercadolivre.model.*;
@@ -14,6 +15,7 @@ import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.util.List;
+import java.util.OptionalDouble;
 
 @RestController
 @RequestMapping("/produto")
@@ -38,5 +40,23 @@ public class ProdutoController {
         entityManager.persist(produto);
 
         return ResponseEntity.ok(produto);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> apresentaProduto(@PathVariable Long id){
+        Produto produto = entityManager.find(Produto.class, id);
+        if(produto == null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("O produto não foi encontrado.");
+        }
+
+        List<Integer> notas = produto.carregaNotas(entityManager, produto);
+
+        Double media = produto.calculaMedia(notas);
+
+        ProdutoDto produtoDto = new ProdutoDto(produto.getNome(), produto.getValor(), produto.getDescricao(),
+                produto.getProdutoCaracteristica(), produto.getFotos(), produto.getOpinioes(),
+                produto.getPerguntas(), notas.size(), media);
+
+        return ResponseEntity.ok(produtoDto);
     }
 }

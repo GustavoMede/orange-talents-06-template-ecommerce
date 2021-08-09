@@ -10,9 +10,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Entity
@@ -66,6 +64,10 @@ public class Produto {
         return produto;
     }
 
+    public Long getId() {
+        return id;
+    }
+
     public String getNome() {
         return nome;
     }
@@ -96,5 +98,31 @@ public class Produto {
 
     public Categoria getCategoria() {
         return categoria;
+    }
+
+    public Set<OpiniaoProduto> getOpinioes() {
+        return opinioes;
+    }
+
+    public Set<PerguntaProduto> getPerguntas() {
+        return perguntas;
+    }
+
+    public List<Integer> carregaNotas(EntityManager entityManager, Produto produto) {
+        List<Integer> notas = new ArrayList<>();
+        Query query = entityManager.createQuery("Select o.nota from Produto p " +
+                "join p.opinioes o " +
+                "where p.id=:id").setParameter("id", produto.getId());
+        List<?> resultados = query.getResultList();
+        resultados.forEach(resultado -> {
+            notas.add((Integer) resultado);
+        });
+        return notas;
+    }
+
+    public Double calculaMedia(List<Integer> notas) {
+        return notas.stream().mapToDouble(nota -> nota)
+                .average()
+                .orElse(0.0);
     }
 }

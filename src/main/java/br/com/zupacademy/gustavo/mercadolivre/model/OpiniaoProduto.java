@@ -53,8 +53,4 @@ public class OpiniaoProduto {
     public String getUsuario() {
         return usuario.getUsername();
     }
-
-    public Produto getProduto() {
-        return produto;
-    }
 }

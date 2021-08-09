@@ -46,11 +46,6 @@ public class PerguntaProduto {
     public String getUsuario() {
         return usuario.getUsername();
     }
-
-    public Produto getProduto() {
-        return produto;
-    }
-
     public PerguntaRequestDto converteDto() {
         return new PerguntaRequestDto(this.titulo);
     }
