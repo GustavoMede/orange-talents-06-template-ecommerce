@@ -53,9 +53,7 @@ public class ProdutoController {
 
         Double media = produto.calculaMedia(notas);
 
-        ProdutoDto produtoDto = new ProdutoDto(produto.getNome(), produto.getValor(), produto.getDescricao(),
-                produto.getProdutoCaracteristica(), produto.getFotos(), produto.getOpinioes(),
-                produto.getPerguntas(), notas.size(), media);
+        ProdutoDto produtoDto = new ProdutoDto(produto, notas.size(), media);
 
         return ResponseEntity.ok(produtoDto);
     }

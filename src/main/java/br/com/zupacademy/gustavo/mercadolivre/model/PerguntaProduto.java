@@ -7,9 +7,10 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Entity
-public class PerguntaProduto {
+public class PerguntaProduto implements Comparable<PerguntaProduto>{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -43,9 +44,24 @@ public class PerguntaProduto {
         return dataCriacao;
     }
 
-    public String getUsuario() {
-        return usuario.getUsername();
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PerguntaProduto that = (PerguntaProduto) o;
+        return titulo.equals(that.titulo) && usuario.equals(that.usuario) && produto.equals(that.produto);
     }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(titulo, usuario, produto);
+    }
+
+    @Override
+    public int compareTo(PerguntaProduto o){
+        return this.titulo.compareTo(o.titulo);
+    }
+
     public PerguntaRequestDto converteDto() {
         return new PerguntaRequestDto(this.titulo);
     }

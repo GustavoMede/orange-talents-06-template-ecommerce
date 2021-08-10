@@ -3,7 +3,10 @@ package br.com.zupacademy.gustavo.mercadolivre.dto;
 import br.com.zupacademy.gustavo.mercadolivre.model.*;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 public class ProdutoDto {
 
@@ -13,22 +16,19 @@ public class ProdutoDto {
     private Set<ProdutoCaracteristica> produtoCaracteristica;
     private Set<FotoProduto> fotos;
     private Set<OpiniaoProduto> opinioes;
-    private Set<PerguntaProduto> perguntas;
+    private SortedSet<String> perguntas;
     private Integer totalNotas;
     private Double mediaNotas;
 
-    public ProdutoDto(String nome, BigDecimal valor, String descricao,
-                      Set<ProdutoCaracteristica> produtoCaracteristica, Set<FotoProduto> fotos,
-                      Set<OpiniaoProduto> opinioes, Set<PerguntaProduto> perguntas, Integer totalNotas,
-                      Double mediaNotas) {
-        this.nome = nome;
-        this.valor = valor;
-        this.descricao = descricao;
-        this.produtoCaracteristica = produtoCaracteristica;
-        this.fotos = fotos;
-        this.opinioes = opinioes;
-        this.perguntas = perguntas;
-        this.totalNotas = totalNotas;
+    public ProdutoDto(Produto produto, Integer notas, Double mediaNotas) {
+        this.nome = produto.getNome();
+        this.valor = produto.getValor();
+        this.descricao = produto.getDescricao();
+        this.produtoCaracteristica = produto.getProdutoCaracteristica();
+        this.fotos = produto.getFotos();
+        this.opinioes = produto.getOpinioes();
+        this.perguntas = (SortedSet<String>) produto.mapeiaPerguntas(pergunta -> pergunta.getTitulo());
+        this.totalNotas = notas;
         this.mediaNotas = mediaNotas;
     }
 
@@ -56,7 +56,7 @@ public class ProdutoDto {
         return opinioes;
     }
 
-    public Set<PerguntaProduto> getPerguntas() {
+    public Set<String> getPerguntas() {
         return perguntas;
     }
 

@@ -11,6 +11,7 @@ import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Entity
@@ -31,7 +32,8 @@ public class Produto {
     @OneToMany(mappedBy = "produto")
     private Set<OpiniaoProduto> opinioes;
     @OneToMany(mappedBy = "produto")
-    private Set<PerguntaProduto> perguntas;
+    @OrderBy("titulo asc")
+    private SortedSet<PerguntaProduto> perguntas = new TreeSet<>();
     @ManyToOne
     private Categoria categoria;
     @ManyToOne
@@ -124,5 +126,10 @@ public class Produto {
         return notas.stream().mapToDouble(nota -> nota)
                 .average()
                 .orElse(0.0);
+    }
+
+    public <T extends Comparable<T>> SortedSet<?> mapeiaPerguntas(Function<PerguntaProduto, T> funcaoMap){
+        return this.perguntas.stream().map(funcaoMap)
+                .collect(Collectors.toCollection(TreeSet::new));
     }
 }
