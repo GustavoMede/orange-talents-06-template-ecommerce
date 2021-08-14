@@ -1,5 +1,6 @@
 package br.com.zupacademy.gustavo.mercadolivre.model;
 
+import io.jsonwebtoken.lang.Assert;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -111,6 +112,7 @@ public class Produto {
     }
 
     public List<Integer> carregaNotas(EntityManager entityManager, Produto produto) {
+        Assert.state(produto != null, "Produto não encontrado.");
         List<Integer> notas = new ArrayList<>();
         Query query = entityManager.createQuery("Select o.nota from Produto p " +
                 "join p.opinioes o " +
@@ -131,5 +133,11 @@ public class Produto {
     public <T extends Comparable<T>> SortedSet<?> mapeiaPerguntas(Function<PerguntaProduto, T> funcaoMap){
         return this.perguntas.stream().map(funcaoMap)
                 .collect(Collectors.toCollection(TreeSet::new));
+    }
+
+    public Produto abateEstoque(Integer quantidade) {
+        Assert.state(this.qtdDisponivel >= quantidade, "Produto com quantidade insuficiente ou esgotado");
+        this.qtdDisponivel -= quantidade;
+        return this;
     }
 }

@@ -9,13 +9,13 @@ import javax.persistence.EntityManager;
 import javax.validation.constraints.NotBlank;
 import java.util.Optional;
 
-public class PerguntaRequestDto {
+public class PerguntaDto {
 
     @NotBlank
     private String titulo;
 
     @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
-    public PerguntaRequestDto(String titulo) {
+    public PerguntaDto(String titulo) {
         this.titulo = titulo;
     }
 

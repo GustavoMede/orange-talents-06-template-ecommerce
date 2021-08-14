@@ -1,6 +1,6 @@
 package br.com.zupacademy.gustavo.mercadolivre.model;
 
-import br.com.zupacademy.gustavo.mercadolivre.dto.PerguntaRequestDto;
+import br.com.zupacademy.gustavo.mercadolivre.dto.PerguntaDto;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -62,7 +62,7 @@ public class PerguntaProduto implements Comparable<PerguntaProduto>{
         return this.titulo.compareTo(o.titulo);
     }
 
-    public PerguntaRequestDto converteDto() {
-        return new PerguntaRequestDto(this.titulo);
+    public PerguntaDto converteDto() {
+        return new PerguntaDto(this.titulo);
     }
 }

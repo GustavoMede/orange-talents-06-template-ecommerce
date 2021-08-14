@@ -9,10 +9,8 @@ import org.springframework.util.StringUtils;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
+
 
 @Entity
 public class Usuario implements UserDetails {

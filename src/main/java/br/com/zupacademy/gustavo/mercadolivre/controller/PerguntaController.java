@@ -1,6 +1,6 @@
 package br.com.zupacademy.gustavo.mercadolivre.controller;
 
-import br.com.zupacademy.gustavo.mercadolivre.dto.PerguntaRequestDto;
+import br.com.zupacademy.gustavo.mercadolivre.dto.PerguntaDto;
 import br.com.zupacademy.gustavo.mercadolivre.model.PerguntaProduto;
 import br.com.zupacademy.gustavo.mercadolivre.model.Produto;
 import br.com.zupacademy.gustavo.mercadolivre.model.Usuario;
@@ -27,7 +27,7 @@ public class PerguntaController {
 
     @PostMapping("/produto/{id}")
     @Transactional
-    public ResponseEntity<?> cadastra(@PathVariable Long id, @RequestBody @Valid PerguntaRequestDto request,
+    public ResponseEntity<?> cadastra(@PathVariable Long id, @RequestBody @Valid PerguntaDto request,
                                       @AuthenticationPrincipal Usuario usuario){
 
         Produto produto = request.encontraProduto(entityManager, id);
@@ -39,7 +39,7 @@ public class PerguntaController {
 
         entityManager.persist(perguntaProduto);
 
-        enviaEmail.envia(perguntaProduto.converteDto());
+        enviaEmail.enviaEmailPergunta(perguntaProduto.converteDto());
 
         return ResponseEntity.ok().build();
     }
